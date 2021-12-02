@@ -3,7 +3,9 @@
     <div id="nav">
       <!-- <b> 导航部分 </b> | -->
       <router-link to="/"> 2D知识图谱</router-link> |
-      <router-link to="/3dView"> 3D知识图谱</router-link>
+      <router-link to="/3dView"> 3D知识图谱</router-link> |
+      <router-link to="/tree"> 树形图</router-link> |
+      <router-link to="/list"> 列表</router-link>
       <!-- <router-link to="/about">3D知识图谱</router-link> -->
     </div>
     <router-view/>

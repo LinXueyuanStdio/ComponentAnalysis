@@ -2,22 +2,17 @@
   <div class="gContainer">
     <!-- <d3graph /> -->
     <gSearch @getData="update" />
-    <d3graph
-      :data="data"
-      :names="names"
-      :labels="labels"
-      :linkTypes="linkTypes"
-    />
+    <Tree />
   </div>
 </template>
 
 <script>
 import gSearch from '@/components/gSearch.vue'
-import d3graph from '@/components/d3graph.vue'
+import Tree from '@/components/Tree.vue'
 export default {
   components: {
     gSearch,
-    d3graph
+    Tree
   },
   data () {
     return {
