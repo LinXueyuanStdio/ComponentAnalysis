@@ -1,8 +1,8 @@
 <template>
   <div class="gContainer">
-    <!-- <d3graph /> -->
+    <!-- <Graph2d /> -->
     <gSearch @getData="update" />
-    <d3graph
+    <Graph2d
       :data="data"
       :names="names"
       :labels="labels"
@@ -13,11 +13,11 @@
 
 <script>
 import gSearch from '@/components/gSearch.vue'
-import d3graph from '@/components/d3graph.vue'
+import Graph2d from '@/components/Graph2d.vue'
 export default {
   components: {
     gSearch,
-    d3graph
+    Graph2d
   },
   data () {
     return {

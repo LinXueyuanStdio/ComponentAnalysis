@@ -81,7 +81,7 @@ import ForceGraph3D from '3d-force-graph'
 // threejs的精灵标签，用于文字的展示
 import SpriteText from 'three-spritetext'
 export default {
-  name: 'threeGraph',
+  name: 'Graph3d',
   props: {
     data: {
       type: Object,

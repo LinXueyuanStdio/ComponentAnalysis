@@ -2,7 +2,7 @@
   <div class="gContainer">
     <gSearch @getData="update" />
     <!-- <threeGraph /> -->
-    <threeGraph
+    <D3-3d-Graph
       :data="data"
       :names="names"
       :labels="labels"
@@ -14,13 +14,13 @@
 <script>
 // @ is an alias to /src
 import gSearch from '@/components/gSearch.vue'
-import threeGraph from '@/components/threeGraph.vue'
+import Graph3d from '@/components/Graph3d.vue'
 
 export default {
-  name: 'threeView',
+  name: 'Graph3dView',
   components: {
     gSearch,
-    threeGraph
+    Graph3d
   },
   data () {
     return {
