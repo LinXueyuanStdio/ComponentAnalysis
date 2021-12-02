@@ -39,38 +39,57 @@ export default {
       this.d3jsonParser(json)
     },
     // 解析json数据，主要负责数据的去重、标准化
+    buildItem (item) {
+      console.log(item)
+      return {
+        id: item.identity,
+        label: item.id ? item.id : '',
+        properties: {
+          groupId: item.id,
+          fileSize: item.fileSize,
+          versionCode: '版本号',
+          versionName: '版本名称',
+          detail: item.detail,
+          totalSize: item.totalSize,
+          name: item.name ? item.name : ''
+        }
+      }
+    },
+    parse (nodes, links, nodeSet, parentItem) {
+      if (!parentItem) {
+        return
+      }
+      const source = this.buildItem(parentItem)
+      console.log(source)
+      if (!parentItem.children) {
+        return
+      }
+      for (const item of parentItem.children) {
+        if (!item) {
+          continue
+        }
+        const itemId = item.identity
+        if (nodeSet.indexOf(itemId) === -1) {
+          nodeSet.push(itemId)
+          const target = this.buildItem(item)
+          nodes.push(target)
+          links.push({
+            source: source,
+            target: target,
+            type: 'type',
+            properties: {
+              name: '类型'
+            }
+          })
+          this.parse(nodes, links, nodeSet, item)
+        }
+      }
+    },
     d3jsonParser (json) {
       const nodes = []
       const links = [] // 存放节点和关系
       const nodeSet = [] // 存放去重后nodes的id
-
-      for (const item of json) {
-        for (const segment of item.p.segments) {
-          // 重新更改data格式
-          if (nodeSet.indexOf(segment.start.identity) === -1) {
-            nodeSet.push(segment.start.identity)
-            nodes.push({
-              id: segment.start.identity,
-              label: segment.start.labels[0],
-              properties: segment.start.properties
-            })
-          }
-          if (nodeSet.indexOf(segment.end.identity) === -1) {
-            nodeSet.push(segment.end.identity)
-            nodes.push({
-              id: segment.end.identity,
-              label: segment.end.labels[0],
-              properties: segment.end.properties
-            })
-          }
-          links.push({
-            source: segment.relationship.start,
-            target: segment.relationship.end,
-            type: segment.relationship.type,
-            properties: segment.relationship.properties
-          })
-        }
-      }
+      this.parse(nodes, links, nodeSet, json.data[0])
       console.log(nodes)
       console.log(links)
       // this.links = links

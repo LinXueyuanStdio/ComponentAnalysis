@@ -46,14 +46,6 @@ export default {
       const nodes = []
       const links = [] // 存放节点和关系
       const nodeSet = [] // 存放去重后nodes的id
-
-      // 使用vue直接通过require获取本地json，不再需要使用d3.json获取数据
-      // d3.json('./../data/records.json', function (error, data) {
-      //   if (error) throw error
-      //   graph = data
-      //   console.log(graph[0].p)
-      // })
-
       for (const item of json) {
         for (const segment of item.p.segments) {
           // 重新更改data格式

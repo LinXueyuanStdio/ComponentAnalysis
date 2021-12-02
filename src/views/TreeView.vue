@@ -12,6 +12,7 @@
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
         <span>
+            {{data.fileSize}}
           <el-button type="text" size="mini" @click="() => append(data)">
             Append
           </el-button>
@@ -34,7 +35,7 @@ export default {
       data: [],
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'id'
       }
     }
   },
