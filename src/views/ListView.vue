@@ -1,60 +1,90 @@
 <template>
-  <div class="gContainer">
-    <gSearch @getData="update" />
-    <!-- <threeGraph /> -->
-    <List :data="data" />
+  <div id="List">
+    <el-table
+      :data="tableData"
+      height="550"
+      border
+      style="width: 100%"
+    show-summary
+       :summary-method="getSummaries"
+      :default-sort="{ prop: 'name', order: 'descending' }"
+    >
+      <el-table-column prop="name" label="名称" sortable>
+      </el-table-column>
+      <el-table-column prop="size" label="大小" sortable>
+      </el-table-column>
+      <el-table-column prop="type" label="类型" sortable>
+      </el-table-column>
+      <el-table-column prop="pkgName" label="包名" sortable>
+      </el-table-column>
+      <el-table-column prop="extInfo" label="额外信息">
+      </el-table-column>
+      <el-table-column prop="level" label="等级" sortable>
+      </el-table-column>
+      <el-table-column prop="useCount" label="被使用次数" sortable>
+      </el-table-column>
+      <el-table-column
+        prop="useCountImmediate"
+        label="被直接依赖次数"
+        sortable
+        width="180"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="libCount"
+        label="包含依赖库个数"
+        sortable
+        width="180"
+      >
+      </el-table-column>
+      <el-table-column prop="sizeValue" label="大小" sortable width="180">
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import gSearch from '@/components/gSearch.vue'
-import List from '@/components/List.vue'
-
+import axios from 'axios'
 export default {
-  name: 'ListView',
-  components: {
-    gSearch,
-    List
-  },
+  name: 'List',
   data () {
     return {
-      data: []
+      tableData: []
     }
   },
+  mounted () {
+    axios.get('../data/list.json').then((resp) => {
+      console.log(resp.data.data)
+      this.tableData = resp.data.data
+    })
+  },
   methods: {
-    // 视图更新
-    update (json) {
-      console.log('update')
-      console.log(json)
-      this.data = [
-        {
-          name: 'qwed',
-          size: 'sdfsd',
-          type: 'sdfas',
-          pkgName: 'asdf',
-          extInfo: 'sdf',
-          level: 'asdf',
-          useCount: 1,
-          useCountImmediate: 1,
-          libCount: 1,
-          sizeValue: 1
+    getSummaries (param) {
+      const { columns, data } = param
+      const sums = []
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = '总结'
+          return
         }
-      ]
+        const values = data.map(item => Number(item[column.property]))
+        if (!values.every(value => isNaN(value))) {
+          sums[index] = values.reduce((prev, curr) => {
+            const value = Number(curr)
+            if (!isNaN(value)) {
+              return prev + curr
+            } else {
+              return prev
+            }
+          }, 0)
+          sums[index] += ' '
+        } else {
+          sums[index] = 'N/A'
+        }
+      })
+
+      return sums
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.gContainer {
-  position: relative;
-  border: 2px #000 solid;
-  background-color: #9dadc1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-</style>
