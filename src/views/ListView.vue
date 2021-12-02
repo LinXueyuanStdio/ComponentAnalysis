@@ -2,36 +2,24 @@
   <div class="gContainer">
     <gSearch @getData="update" />
     <!-- <threeGraph /> -->
-    <Graph3d
-      :data="data"
-      :names="names"
-      :labels="labels"
-      :linkTypes="linkTypes"
-    />
+    <List :data="data" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import gSearch from '@/components/gSearch.vue'
-import Graph3d from '@/components/Graph3d.vue'
+import List from '@/components/List.vue'
 
 export default {
   name: 'ListView',
   components: {
     gSearch,
-    Graph3d
+    List
   },
   data () {
     return {
-      // d3jsonParser()处理 json 后返回的结果
-      data: {
-        nodes: [],
-        links: []
-      },
-      names: ['企业', '贸易类型', '地区', '国家'],
-      labels: ['Enterprise', 'Type', 'Region', 'Country'],
-      linkTypes: ['', 'type', 'locate', 'export']
+      data: []
     }
   },
   methods: {
@@ -39,48 +27,20 @@ export default {
     update (json) {
       console.log('update')
       console.log(json)
-      this.d3jsonParser(json)
-    },
-    /*eslint-disable*/
-    // 解析json数据，主要负责数据的去重、标准化
-    d3jsonParser (json) {
-      const nodes =[]
-      const links = [] // 存放节点和关系
-      const nodeSet = [] // 存放去重后nodes的id
-
-      for (let item of json) {
-        for (let segment of item.p.segments) {
-          // 重新更改data格式
-          if (nodeSet.indexOf(segment.start.identity) == -1) {
-            nodeSet.push(segment.start.identity)
-            nodes.push({
-              id: segment.start.identity,
-              label: segment.start.labels[0],
-              properties: segment.start.properties
-            })
-          }
-          if (nodeSet.indexOf(segment.end.identity) == -1) {
-            nodeSet.push(segment.end.identity)
-            nodes.push({
-              id: segment.end.identity,
-              label: segment.end.labels[0],
-              properties: segment.end.properties
-            })
-          }
-          links.push({
-            source: segment.relationship.start,
-            target: segment.relationship.end,
-            type: segment.relationship.type,
-            properties: segment.relationship.properties
-          })
+      this.data = [
+        {
+          name: 'qwed',
+          size: 'sdfsd',
+          type: 'sdfas',
+          pkgName: 'asdf',
+          extInfo: 'sdf',
+          level: 'asdf',
+          useCount: 1,
+          useCountImmediate: 1,
+          libCount: 1,
+          sizeValue: 1
         }
-      }
-      console.log(nodes)
-      console.log(links)
-      // this.links = links
-      // this.nodes = nodes
-      this.data = { nodes, links }
-      // return { nodes, links }
+      ]
     }
   }
 }
