@@ -38,17 +38,16 @@ export default {
       console.log(json)
       this.d3jsonParser(json)
     },
-    /*eslint-disable*/
     // 解析json数据，主要负责数据的去重、标准化
     d3jsonParser (json) {
-      const nodes =[]
+      const nodes = []
       const links = [] // 存放节点和关系
       const nodeSet = [] // 存放去重后nodes的id
 
-      for (let item of json) {
-        for (let segment of item.p.segments) {
+      for (const item of json) {
+        for (const segment of item.p.segments) {
           // 重新更改data格式
-          if (nodeSet.indexOf(segment.start.identity) == -1) {
+          if (nodeSet.indexOf(segment.start.identity) === -1) {
             nodeSet.push(segment.start.identity)
             nodes.push({
               id: segment.start.identity,
@@ -56,7 +55,7 @@ export default {
               properties: segment.start.properties
             })
           }
-          if (nodeSet.indexOf(segment.end.identity) == -1) {
+          if (nodeSet.indexOf(segment.end.identity) === -1) {
             nodeSet.push(segment.end.identity)
             nodes.push({
               id: segment.end.identity,
