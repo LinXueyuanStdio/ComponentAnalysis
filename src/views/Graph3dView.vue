@@ -2,7 +2,7 @@
   <div class="gContainer">
     <gSearch @getData="update" />
     <!-- <threeGraph /> -->
-    <D3-3d-Graph
+    <Graph3d
       :data="data"
       :names="names"
       :labels="labels"

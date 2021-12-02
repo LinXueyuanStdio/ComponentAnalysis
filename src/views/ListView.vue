@@ -1,8 +1,8 @@
 <template>
   <div class="gContainer">
-    <!-- <d3graph /> -->
     <gSearch @getData="update" />
-    <d3graph
+    <!-- <threeGraph /> -->
+    <Graph3d
       :data="data"
       :names="names"
       :labels="labels"
@@ -12,12 +12,15 @@
 </template>
 
 <script>
+// @ is an alias to /src
 import gSearch from '@/components/gSearch.vue'
-import d3graph from '@/components/d3graph.vue'
+import Graph3d from '@/components/Graph3d.vue'
+
 export default {
+  name: 'ListView',
   components: {
     gSearch,
-    d3graph
+    Graph3d
   },
   data () {
     return {
@@ -90,8 +93,8 @@ export default {
   background-color: #9dadc1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 </style>

@@ -5,28 +5,58 @@
       @onClick="handleTreeClick"
       :check="check"
       @onCheck="handleCheck"
-    />
+    /><p>sdfdsfsdfd</p>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import VueZtree from 'ztree-for-vue'
 export default {
   name: 'Tree',
-  data () {
-    return {
-      treeNodes: axios.get('../data/tree.json').then((resp) => {
-        console.log(resp.data.data)
-        return resp.data.data
-      }),
-      check: {
-        enable: true
+  components: {
+    VueZtree
+  },
+  props: {
+    treeNodes: {
+      type: Array,
+      default: function () {
+        return [
+          {
+            name: '父节点1',
+            id: 0,
+            children: [
+              {
+                name: '子节点1',
+                id: 1
+              },
+              {
+                name: '子节点2',
+                id: 2,
+                children: [
+                  {
+                    name: '子节点3',
+                    id: 3
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    check: {
+      type: Object,
+      default: function () {
+        return {
+          enable: true
+        }
       }
     }
   },
-  components: {
-    VueZtree
+  watch: {
+    data (newData, oldData) {
+      console.log(newData, oldData)
+    }
   },
   methods: {
     handleTreeClick (event, treeId, treeNode) {
@@ -38,3 +68,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@media only screen and (max-width: 1125px) {
+  #info,
+  #mode {
+    display: none !important;
+  }
+}
+#Tree {
+  font-size: 18px;
+  color: #034c6a !important;
+}
+</style>

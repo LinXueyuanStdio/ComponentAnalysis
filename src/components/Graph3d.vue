@@ -131,11 +131,12 @@ export default {
       isEdit: true,
       // 节点属性对应的标签名称
       nodeObjMap: {
-        address: "注册地址",
-        captial: "注册资本",
-        credit_code: "信用代码",
-        name: "节点名称",
-        setup_time: "注册日期",
+        'groupId': 'groupId',
+        'artifactId': 'artifactId',
+        'versionCode': '版本号',
+        'versionName': '版本名称',
+        'repoUrl': '仓库链接',
+        'name': '名称',
       },
     };
   },
