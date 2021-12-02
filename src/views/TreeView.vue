@@ -1,7 +1,7 @@
 <template>
   <div class="gContainer">
     <gSearch @getData="update" />
-    <Tree :treeNodes="treeNodes" :check="check" />
+    <Tree :data="data" />
   </div>
 </template>
 
@@ -16,10 +16,7 @@ export default {
   },
   data () {
     return {
-      treeNodes: [],
-      check: {
-        enable: true
-      }
+      data: []
     }
   },
   methods: {
@@ -27,16 +24,9 @@ export default {
     update (json) {
       console.log('update')
       console.log(json)
-      this.d3jsonParser(json)
-    },
-    // 解析json数据，主要负责数据的去重、标准化
-    d3jsonParser (json) {
       axios.get('../data/tree.json').then((resp) => {
         console.log(resp.data.data)
-        this.treeNodes = resp.data.data
-        this.check = {
-          enable: true
-        }
+        this.data = resp.data.data
       })
     }
   }
