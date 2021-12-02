@@ -7,7 +7,7 @@
       style="width: 100%"
     show-summary
        :summary-method="getSummaries"
-      :default-sort="{ prop: 'name', order: 'descending' }"
+      :default-sort="{ prop: 'sizeValue', order: 'descending' }"
     >
       <el-table-column prop="name" label="名称" sortable>
       </el-table-column>

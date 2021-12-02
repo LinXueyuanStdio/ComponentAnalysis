@@ -8,7 +8,7 @@
       <router-link to="/list"> 列表</router-link>
       <!-- <router-link to="/about">3D知识图谱</router-link> -->
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
